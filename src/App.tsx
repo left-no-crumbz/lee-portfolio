@@ -185,14 +185,14 @@ function Evidence() {
           </div>
           <a
             className="text-link border-b border-line-strong"
-            href={`mailto:${email}?subject=UAV%20project%20evidence`}
+            href={`mailto:${email}?subject=UAV%20Project%20Evidence`}
           >
             Request project evidence <ArrowUpRight size={16} />
           </a>
         </div>
         <figure className="min-w-0">
           <div className="mb-3 flex items-center justify-between gap-4">
-            <span className="technical text-muted">{stage.name} / Project photograph</span>
+            <span className="technical text-muted">{stage.name} / {stage.mediaLabel}</span>
             <button className="icon-button hidden md:inline-flex" onClick={() => setExpanded(!expanded)} aria-pressed={expanded} aria-label={expanded ? "Restore image size" : "Enlarge project image"} title={expanded ? "Restore image size" : "Enlarge project image"}>
               {expanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
             </button>
@@ -270,7 +270,7 @@ function ProjectIndex() {
             <p className="max-w-[70ch] text-sm">{project.detail}</p>
             <a
               className="text-link md:col-start-2"
-              href={`mailto:${email}?subject=${encodeURIComponent(`${project.title} — project enquiry`)}`}
+              href={`mailto:${email}?subject=${encodeURIComponent(`${project.title} — Project Inquiry`)}`}
             >
               Discuss this project <ArrowUpRight size={16} />
             </a>
