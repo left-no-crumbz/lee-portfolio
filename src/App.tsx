@@ -431,25 +431,26 @@ function ProjectIndex() {
         <span>My contribution / methods</span>
         <span>Evidence</span>
       </div>
-      <a href="#uav" className="group flex flex-wrap items-center gap-3 border-b border-line py-6 md:gap-6">
+      <div className="work-rule" aria-hidden="true" />
+      <a href="#uav" className="group work-row flex flex-wrap items-center gap-3 border-b border-line py-6 md:gap-6">
         <span className="technical text-muted">01</span>
-        <h3 className="text-[22px] transition-colors group-hover:text-accent">Fixed-wing UAV</h3>
+        <h3 className="project-title text-[22px] transition-colors group-hover:text-accent">Fixed-wing UAV</h3>
         <span className="technical order-3 w-full text-muted md:order-0 md:w-auto">Lead design / SolidWorks + XFLR5</span>
-        <span className="text-link ml-auto">
+        <span className="text-link return-link ml-auto">
           Explore above <ArrowUpRight size={18} />
         </span>
       </a>
       {projects.map((project, index) => (
         <details className="project group border-b border-line" key={project.title}>
-          <summary className="grid list-none items-center gap-5 py-7 transition-colors hover:bg-accent/5 md:grid-cols-[5fr_3fr_3fr] md:py-7.5 lg:gap-7.5">
+          <summary className="project-summary grid list-none items-center gap-5 py-7 transition-colors hover:bg-accent/5 md:grid-cols-[5fr_3fr_3fr] md:py-7.5 lg:gap-7.5">
             <div className="flex gap-3 lg:gap-5.5">
-              <span className="min-w-9 font-display text-[32px] leading-none font-extrabold text-muted/60 transition-colors group-open:text-accent md:min-w-10 lg:min-w-13.5 lg:text-[44px]">0{index + 2}</span>
+              <span className="project-num min-w-9 font-display text-[32px] leading-none font-extrabold text-muted/60 transition-colors group-hover:text-accent group-open:text-accent md:min-w-10 lg:min-w-13.5 lg:text-[44px]">0{index + 2}</span>
               <div>
                 <span className="technical text-muted">
                   {project.discipline}
                   {project.year && ` / ${project.year}`}
                 </span>
-                <h3 className="mt-2 mb-3 text-[25px] transition-colors group-hover:text-accent group-open:text-accent md:text-[22px] lg:text-[25px]">{project.title}</h3>
+                <h3 className="project-title mt-2 mb-3 text-[25px] transition-colors group-hover:text-accent group-open:text-accent md:text-[22px] lg:text-[25px]">{project.title}</h3>
                 <p className="text-xs md:max-w-[30ch]">{project.summary}</p>
               </div>
             </div>
@@ -458,21 +459,32 @@ function ProjectIndex() {
               <span className="technical text-muted">{project.methods}</span>
             </div>
             <div className="ml-12 flex items-center gap-4 md:ml-0">
-              <div className="min-w-0 flex-1 overflow-hidden">
-                <ProjectImage className="transition-transform duration-500 ease-out-expo group-hover:scale-[1.025]" src={project.image} alt={project.alt} sizes="(max-width: 767px) calc(100vw - 124px), (min-width: 1440px) 310px, 23vw" />
+              <div className="project-thumb min-w-0 flex-1 overflow-hidden">
+                <div className="thumb-frame">
+                  <ProjectImage className="transition-transform duration-500 ease-out-expo group-hover:scale-[1.025]" src={project.image} alt={project.alt} sizes="(max-width: 767px) calc(100vw - 124px), (min-width: 1440px) 310px, 23vw" />
+                  <span className="thumb-bar technical" aria-hidden="true">
+                    <span>Fig. 0{index + 2} / Inspect</span>
+                  </span>
+                  <span className="thumb-corners" aria-hidden="true">
+                    <i className="tick tl" />
+                    <i className="tick tr" />
+                    <i className="tick bl" />
+                    <i className="tick br" />
+                  </span>
+                </div>
                 <span className="technical mt-2 block text-muted group-open:text-accent">
                   <span className="group-open:hidden">Open project notes</span>
                   <span className="hidden group-open:inline">Close project notes</span>
                 </span>
               </div>
-              <Plus className="shrink-0 transition-transform duration-300 group-open:rotate-45 group-open:text-accent" size={20} />
+              <Plus className="project-plus shrink-0 transition-transform duration-300 group-open:rotate-45 group-open:text-accent" size={20} />
             </div>
           </summary>
           <div className="project-detail grid gap-4 pt-2 pb-8 min-[390px]:pl-12 md:grid-cols-[1fr_2fr] lg:pl-19">
-            <span className="technical text-accent">Contribution & limitations</span>
-            <p className="max-w-[70ch] text-sm">{project.detail}</p>
+            <span className="technical detail-item detail-stamp text-accent">Contribution & limitations</span>
+            <p className="detail-item max-w-[70ch] text-sm">{project.detail}</p>
             <a
-              className="text-link md:col-start-2"
+              className="text-link detail-item md:col-start-2"
               href={`mailto:${email}?subject=${encodeURIComponent(`${project.title} — Project Inquiry`)}`}
             >
               Discuss this project <ArrowUpRight size={16} />
@@ -493,6 +505,18 @@ function App() {
   const openResume = useCallback(() => setResumeOpen(true), []);
   const closeResume = useCallback(() => setResumeOpen(false), []);
   useEffect(() => {
+    // Hairline plot state: independent of authored motion so reduced-motion
+    // still resolves to the drawn end-state (transitions are disabled there).
+    const indexEl = root.current?.querySelector("#work");
+    let viewObserver: IntersectionObserver | undefined;
+    if (indexEl) {
+      viewObserver = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        indexEl.classList.add("is-inview");
+        viewObserver?.disconnect();
+      }, { threshold: 0.15 });
+      viewObserver.observe(indexEl);
+    }
     const motion = gsap.matchMedia();
     motion.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(".hero-enter", { y: 24, opacity: 0.4 }, {
@@ -503,8 +527,9 @@ function App() {
       let reveal: gsap.core.Tween | undefined;
       const observer = new IntersectionObserver(([entry]) => {
         if (!entry.isIntersecting || !index) return;
-        reveal = gsap.fromTo(index.querySelectorAll("summary"), { x: 18, opacity: 0.6 }, {
+        reveal = gsap.fromTo(index.querySelectorAll("summary, .work-row"), { x: 18, opacity: 0.6 }, {
           x: 0, opacity: 1, stagger: 0.06, duration: 0.4, ease: "expo.out",
+          clearProps: "transform",
         });
         observer.disconnect();
       }, { threshold: 0.15 });
@@ -514,7 +539,10 @@ function App() {
         reveal?.revert();
       };
     }, root);
-    return () => motion.revert();
+    return () => {
+      viewObserver?.disconnect();
+      motion.revert();
+    };
   }, []);
   async function copyEmail() {
     try {

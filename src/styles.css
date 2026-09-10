@@ -96,6 +96,112 @@
 .resume-panel { animation: resume-in 320ms var(--ease-out-expo); }
 .project[open] .project-detail { animation: evidence-in 320ms var(--ease-out-expo); }
 .navigation.is-open { animation: evidence-in 240ms var(--ease-out-expo); }
+/* Work index micro-interactions: one instrument system, expo-out throughout. */
+.work-rule {
+  display: block;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 700ms var(--ease-out-expo);
+}
+#work.is-inview .work-rule { transform: scaleX(1); }
+
+.project-summary,
+.work-row { position: relative; }
+.project-summary::before,
+.work-row::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-out-expo);
+}
+.project-summary:hover::before,
+.project-summary:focus-visible::before,
+.work-row:hover::before,
+.work-row:focus-visible::before { transform: scaleX(1); }
+
+.project-title {
+  transition: transform 300ms var(--ease-out-expo), color 150ms ease-out;
+}
+.group:hover .project-title,
+.project-summary:focus-visible .project-title { transform: translateX(4px); }
+.work-row:active,
+.project-summary:active { transform: translateY(1px); }
+
+.return-link svg { transition: transform 300ms var(--ease-out-expo); }
+.return-link:hover svg { transform: translate(3px, -3px); }
+.return-link:active svg { transform: translate(0, 2px); }
+
+.thumb-frame { position: relative; overflow: hidden; }
+.thumb-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  background: color-mix(in srgb, var(--canvas) 88%, transparent);
+  color: var(--text);
+  border-top: 1px solid var(--line-strong);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 240ms var(--ease-out-expo), transform 240ms var(--ease-out-expo);
+}
+.group:hover .thumb-bar,
+.project-summary:focus-visible .thumb-bar { opacity: 1; transform: translateY(0); }
+@media (hover: none) {
+  .thumb-bar { opacity: 0.85; transform: none; }
+}
+@media (max-width: 767px) {
+  .thumb-bar { opacity: 0.9; transform: none; }
+}
+.thumb-corners .tick {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 240ms var(--ease-out-expo);
+}
+.tick.tl { top: 8px; left: 8px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.tick.tr { top: 8px; right: 8px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.tick.bl { bottom: 8px; left: 8px; border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.tick.br { bottom: 8px; right: 8px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.group:hover .tick,
+.project-summary:focus-visible .tick { opacity: 1; }
+@media (hover: none) {
+  .thumb-corners .tick { opacity: 0; }
+}
+
+.project-plus { transition: transform 300ms var(--ease-out-expo), color 150ms ease-out; }
+.project-summary:active .project-plus { transform: scale(0.85); }
+.project[open] .project-summary:active .project-plus { transform: scale(0.85) rotate(45deg); }
+
+@keyframes detail-in {
+  from { opacity: 0; transform: translateY(6px); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+.project[open] .detail-item { animation: detail-in 360ms var(--ease-out-expo) both; }
+.project[open] .detail-item:nth-child(2) { animation-delay: 60ms; }
+.project[open] .detail-item:nth-child(3) { animation-delay: 120ms; }
+.detail-stamp {
+  display: inline-block;
+  width: fit-content;
+  border: 1px solid var(--accent);
+  padding: 4px 8px;
+  align-self: start;
+  justify-self: start;
+}
+
 @media (max-width: 900px) {
   html { background-size: 40px 40px; }
 }
