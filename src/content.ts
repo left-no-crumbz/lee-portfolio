@@ -8,17 +8,28 @@ import teamSmall from "./media/team-640.webp";
 import aircraftSmall from "./media/aircraft-640.webp";
 import controlsSmall from "./media/controls-640.webp";
 import competitionSmall from "./media/competition-640.webp";
+import quadcopter from "./media/quadcopter-1280.webp";
+import quadcopterSmall from "./media/quadcopter-640.webp";
+import windTunnel from "./media/windTunnel-1280.webp";
+import windTunnelSmall from "./media/windTunnel-640.webp";
+import suppliedResume from "../assets/resume/lee-andrei-tuazon-resume.pdf?url";
+import dimensions from "./media/dimensions.json";
 
 export const email = "engrlatuazon@gmail.com";
-// A public PDF can be configured once the owner approves a publishable revision.
-export const resumeUrl: string | undefined = import.meta.env.VITE_RESUME_URL;
-export const media = { airframe, team, aircraft, controls, competition };
+export const resumeUrl = suppliedResume;
+export const linkedInUrl = "https://www.linkedin.com/in/leetuazon/";
+export const media = { airframe, team, aircraft, controls, competition, quadcopter, windTunnel };
+export const mediaDimensions = Object.fromEntries(
+  Object.entries(media).map(([name, src]) => [src, dimensions[name as keyof typeof dimensions]]),
+);
 export const smallMedia: Record<string, string> = {
   [airframe]: airframeSmall,
   [team]: teamSmall,
   [aircraft]: aircraftSmall,
   [controls]: controlsSmall,
   [competition]: competitionSmall,
+  [quadcopter]: quadcopterSmall,
+  [windTunnel]: windTunnelSmall,
 };
 export const stages = [
   {
@@ -62,8 +73,8 @@ export const projects = [
     detail:
       "I handled procurement, BOM spreadsheets, soldering, electronic assembly, and Betaflight configuration. The team built and flew the drone. Approximately 30-minute durations were reported across multiple stable, low-aggression flights with hovering, standard battery configuration, and no additional payload. The exact trial count is unavailable.",
     evidence: "Assembly + flight observations",
-    image: undefined,
-    alt: "",
+    image: quadcopter,
+    alt: "Quadcopter assembly with green propellers, exposed flight controller, soldered wiring, and battery connector.",
     year: "2026",
   },
   {
@@ -87,9 +98,9 @@ export const projects = [
     summary: "Designing a physical setup to observe airflow.",
     detail:
       "I produced the assembly, drawings, and simulation; parts were co-created with a colleague. A third-party professional manufactured parts, and our five-person team assembled the tunnel. It was used for visual testing only and collected no numerical experimental data. Project artifacts are described here in accordance with publication restrictions.",
-    evidence: "Project description / restricted artifacts",
-    image: undefined,
-    alt: "",
+    evidence: "Physical tunnel assembly",
+    image: windTunnel,
+    alt: "Fabricated metal wind-tunnel sections and support frame being assembled in a workshop.",
     year: "2025",
   },
   {

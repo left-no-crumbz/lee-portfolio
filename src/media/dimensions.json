@@ -1,0 +1,30 @@
+{
+  "airframe": {
+    "width": 1280,
+    "height": 960
+  },
+  "team": {
+    "width": 1280,
+    "height": 960
+  },
+  "aircraft": {
+    "width": 1280,
+    "height": 690
+  },
+  "controls": {
+    "width": 1280,
+    "height": 1707
+  },
+  "competition": {
+    "width": 1280,
+    "height": 960
+  },
+  "quadcopter": {
+    "width": 1280,
+    "height": 960
+  },
+  "windTunnel": {
+    "width": 1280,
+    "height": 960
+  }
+}
