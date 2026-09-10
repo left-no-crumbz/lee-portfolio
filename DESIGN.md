@@ -92,6 +92,7 @@ Use:
 
 - A centered, bordered page chassis on desktop
 - Plain surfaces with drafting structure expressed by aligned columns and rules
+- A subtle full-page grid background (72px, reduced to 40px on mobile) reinforcing the drafting-table aesthetic
 - Hairline dividers as the primary grouping device
 - Sharp rectangular controls and image frames
 - Large, tightly tracked sans-serif display type
