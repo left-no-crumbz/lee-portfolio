@@ -13,6 +13,7 @@
   --accent: #cba6f7;
   --accent-readable: #cba6f7;
   --accent-ink: #17171a;
+  --grid: #1d1d21;
   color-scheme: dark;
 }
 
@@ -35,7 +36,16 @@
 }
 
 @layer base {
-  html { @apply scroll-smooth scroll-pt-6 bg-canvas text-ink; scrollbar-color: var(--line-strong) var(--canvas); }
+  html {
+    @apply scroll-smooth scroll-pt-6 text-ink;
+    background-color: var(--canvas);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 72px 72px;
+    overflow-x: clip;
+    scrollbar-color: var(--line-strong) var(--canvas);
+  }
   body { @apply m-0 font-sans; }
   button, a, summary { @apply touch-manipulation; -webkit-tap-highlight-color: transparent; }
   button, summary { @apply cursor-pointer; }
@@ -76,6 +86,9 @@
 .evidence-media { animation: evidence-in 360ms var(--ease-out-expo); }
 .project[open] .project-detail { animation: evidence-in 320ms var(--ease-out-expo); }
 .navigation.is-open { animation: evidence-in 240ms var(--ease-out-expo); }
+@media (max-width: 900px) {
+  html { background-size: 40px 40px; }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
