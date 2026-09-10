@@ -17,4 +17,15 @@ export default defineConfig({
     assetsInlineLimit: 4096,
     modulePreload: { polyfill: false },
   },
+  resolve: {
+    // Preact replaces react-dom (~85% of the client bundle). The app uses
+    // only compat-covered APIs (hooks, lazy/Suspense, createRoot); verified
+    // by the interaction suite after every change to this mapping.
+    alias: {
+      react: "preact/compat",
+      "react-dom/test-utils": "preact/test-utils",
+      "react-dom": "preact/compat",
+      "react/jsx-runtime": "preact/jsx-runtime",
+    },
+  },
 });
