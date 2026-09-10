@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
   ArrowDownToLine,
@@ -69,7 +69,59 @@ function ResumeLink({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function Navigation() {
+const NAV_SECTIONS = [
+  { href: "#work", label: "Work" },
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#contact", label: "Contact" },
+] as const;
+
+function useActiveSection() {
+  const [active, setActive] = useState("#work");
+  const scrollTimeout = useRef<number | undefined>(undefined);
+  useEffect(() => {
+    const sectionEls = NAV_SECTIONS
+      .map(({ href }) => document.getElementById(href.slice(1)))
+      .filter(Boolean) as HTMLElement[];
+    if (!sectionEls.length) return;
+    function update() {
+      if (scrollTimeout.current) return;
+      const doc = document.documentElement;
+      // Bottom-of-page guard: the last section is too short for its
+      // midpoint to ever reach viewport center, so force CONTACT.
+      if (window.scrollY + window.innerHeight >= doc.scrollHeight - 8) {
+        setActive("#contact");
+        return;
+      }
+      // Top-edge rule (monotonic in both scroll directions): the active
+      // section is the last one whose top has crossed above the viewport
+      // midpoint (offset for the sticky header). Unlike closest-midpoint,
+      // this can't skip EXPERIENCE when scrolling bottom-to-top.
+      const line = window.innerHeight * 0.5;
+      let current = sectionEls[0].id;
+      for (const el of sectionEls) {
+        if (el.getBoundingClientRect().top <= line) current = el.id;
+      }
+      setActive(`#${current}`);
+    }
+    const onScroll = () => requestAnimationFrame(update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+  const navigate = useCallback((href: string) => {
+    setActive(href);
+    clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => { scrollTimeout.current = undefined; }, 800);
+  }, []);
+  return [active, navigate] as const;
+}
+
+function Navigation({ activeSection, onNavigate }: { activeSection: string; onNavigate: (href: string) => void }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     function escape(event: KeyboardEvent) {
@@ -79,7 +131,7 @@ function Navigation() {
     return () => document.removeEventListener("keydown", escape);
   }, []);
   return (
-    <header className="relative flex h-16 items-center justify-between gap-5 border-b border-line px-4 min-[390px]:px-5 md:h-19 md:px-8.5 lg:gap-8">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-5 border-b border-line bg-canvas px-4 min-[390px]:px-5 md:h-19 md:px-8.5 lg:gap-8">
       <a className="flex items-center gap-2 font-display text-4xl font-black tracking-[-0.04em]" href="#top" aria-label="Lee, homepage">
         <img src={notionFace} alt="" className="h-12 w-12" />
         lee<span className="text-accent">.</span>
@@ -89,18 +141,16 @@ function Navigation() {
         id="navigation"
         aria-label="Main navigation"
       >
-        <a href="#work" onClick={() => setOpen(false)}>
-          Work
-        </a>
-        <a href="#about" onClick={() => setOpen(false)}>
-          About
-        </a>
-        <a href="#experience" onClick={() => setOpen(false)}>
-          Experience
-        </a>
-        <a href="#contact" onClick={() => setOpen(false)}>
-          Contact
-        </a>
+        {NAV_SECTIONS.map(({ href, label }) => (
+          <a
+            key={href}
+            href={href}
+            className={href === activeSection ? "text-accent" : undefined}
+            onClick={() => { onNavigate(href); setOpen(false); }}
+          >
+            {label}
+          </a>
+        ))}
       </nav>
       <div className="flex gap-1.5 min-[390px]:gap-2">
         <a
@@ -285,6 +335,7 @@ function App() {
   const root = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  const [activeSection, navigate] = useActiveSection();
   useEffect(() => {
     const motion = gsap.matchMedia();
     motion.add("(prefers-reduced-motion: no-preference)", () => {
@@ -319,11 +370,11 @@ function App() {
     }
   }
   return (
-    <div className="mx-auto max-w-360 border-line md:border-x min-[1441px]:mt-5 min-[1441px]:border-t" ref={root} id="top">
+    <div className="mx-auto max-w-360 border-line bg-canvas md:border-x min-[1441px]:mt-5 min-[1441px]:border-t" ref={root} id="top">
       <a className="absolute -top-24 left-5 z-50 bg-accent p-4 text-accent-ink focus:top-2" href="#main">
         Skip to content
       </a>
-      <Navigation />
+      <Navigation activeSection={activeSection} onNavigate={navigate} />
       <main id="main">
         <section className="section-pad pt-8! pb-7! md:pt-12! md:pb-10!">
           <div className="hero-enter mb-6 flex items-center justify-between gap-5">
@@ -342,7 +393,7 @@ function App() {
                 builds—turning engineering decisions into things you can
                 inspect.
               </p>
-              <a className="button mt-6 border-accent! bg-accent text-accent-ink hover:bg-ink hover:text-canvas" href="#work">
+              <a className="button mt-6 border-accent! bg-accent text-accent-ink hover:bg-ink hover:text-canvas" href="#uav">
                 View selected work <ArrowDown size={18} />
               </a>
               <div className="technical mt-10 hidden text-muted md:block">
@@ -497,9 +548,6 @@ function App() {
       </main>
       <footer className="flex flex-wrap items-center justify-between gap-4 border-y border-line px-4 py-6 text-muted min-[390px]:px-5 md:px-8.5">
         <span className="technical">© {new Date().getFullYear()} Lee</span>
-        <span className="technical order-3 w-full md:order-0 md:w-auto">
-          Built with intention. Backed by evidence.
-        </span>
         <a href="#top" className="text-link technical">
           Back to top <ArrowUpRight size={15} />
         </a>
