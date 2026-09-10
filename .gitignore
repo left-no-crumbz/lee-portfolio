@@ -4,3 +4,4 @@ dist/
 .impeccable/build/
 *.local
 website-questions.txt
+.claude/
