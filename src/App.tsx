@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
-  ArrowDownToLine,
   ArrowRight,
   ArrowUpRight,
   Check,
-  ExternalLink,
   FileText,
   Mail,
   Linkedin,
@@ -15,15 +13,14 @@ import {
   Plus,
   X,
 } from "lucide-react";
-import gsap from "gsap";
-import notionFace from "../assets/myself/my-notion-face-transparent.png";
+import notionFace48 from "./media/notion-face-48.webp";
+import notionFace96 from "./media/notion-face-96.webp";
 import {
   email,
   media,
   mediaDimensions,
   linkedInUrl,
   projects,
-  resumeUrl,
   smallMedia,
   stages,
 } from "./content";
@@ -52,6 +49,7 @@ function ProjectImage({
       height={mediaDimensions[src].height}
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
+      decoding="async"
     />
   );
 }
@@ -83,144 +81,7 @@ function ResumeTrigger({
   );
 }
 
-function ResumeViewer({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
-  const closeRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-    function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
-      if (event.key === "Tab" && panelRef.current) {
-        const focusable = panelRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])',
-        );
-        if (!focusable.length) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      }
-    }
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open, onClose]);
-  if (!open) return null;
-  return (
-    <div
-      className="resume-scrim fixed inset-0 z-50 flex items-end justify-center bg-[#0b0b0d]/70 p-0 sm:items-center sm:p-6 md:p-10"
-      onClick={onClose}
-      role="presentation"
-    >
-      <div
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Resume preview"
-        className="resume-panel flex h-[92dvh] w-full max-w-5xl flex-col border border-line-strong bg-surface sm:h-[84vh]"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="flex items-center gap-3 border-b border-line bg-canvas px-4 py-3 md:px-5">
-          <span className="inline-flex size-9 shrink-0 items-center justify-center border border-line-strong text-accent">
-            <FileText size={18} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm text-ink" title="Lee-Andrei-Tuazon-Resume.pdf">
-              Lee-Andrei-Tuazon-Resume.pdf
-            </p>
-            <p className="technical text-muted">Resume / PDF preview</p>
-          </div>
-          <div className="flex shrink-0 items-center gap-1.5 min-[390px]:gap-2">
-            <a
-              className="icon-button"
-              href={resumeUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Open resume in new tab"
-              title="Open in new tab"
-            >
-              <ExternalLink size={18} />
-            </a>
-            <a
-              className="button min-h-11! gap-2! px-3! py-2! md:px-5! [&>svg]:hover:translate-y-0!"
-              href={resumeUrl}
-              download="Lee-Andrei-Tuazon-Resume.pdf"
-              aria-label="Download resume PDF"
-              title="Download PDF"
-            >
-              <ArrowDownToLine size={18} />
-              <span className="hidden min-[390px]:inline">Download</span>
-            </a>
-            <button
-              ref={closeRef}
-              type="button"
-              className="icon-button"
-              onClick={onClose}
-              aria-label="Close resume preview"
-              title="Close preview"
-            >
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-        <div className="min-h-0 flex-1 bg-[#525659]">
-          <object
-            data={resumeUrl}
-            type="application/pdf"
-            aria-label="Lee resume PDF preview"
-            className="block h-full w-full"
-          >
-            <div className="flex h-full flex-col items-center justify-center gap-4 bg-surface p-8 text-center">
-              <p className="max-w-[42ch] text-sm">
-                This browser can’t show the PDF preview. Open it in a new tab
-                or download a copy instead.
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <a
-                  className="button"
-                  href={resumeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Open in new tab <ArrowUpRight size={16} />
-                </a>
-                <a
-                  className="button border-accent! bg-accent text-accent-ink hover:bg-ink hover:text-canvas"
-                  href={resumeUrl}
-                  download="Lee-Andrei-Tuazon-Resume.pdf"
-                >
-                  <ArrowDownToLine size={18} /> Download PDF
-                </a>
-              </div>
-            </div>
-          </object>
-        </div>
-        <div className="technical flex items-center justify-between gap-4 border-t border-line px-4 py-3 text-muted md:px-5">
-          <span>PDF preview</span>
-          <span className="hidden min-[390px]:inline">
-            Download available above
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
+const ResumeViewer = lazy(() => import("./ResumeViewer"));
 
 const NAV_SECTIONS = [
   { href: "#work", label: "Work" },
@@ -286,7 +147,18 @@ function Navigation({ activeSection, onNavigate, onViewResume }: { activeSection
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-5 border-b border-line bg-canvas px-4 min-[390px]:px-5 md:h-19 md:px-8.5 lg:gap-8">
       <a className="flex items-center gap-2 font-display text-4xl font-black tracking-[-0.04em]" href="#top" aria-label="Lee, homepage">
-        <img src={notionFace} alt="" className="h-12 w-12" />
+        <img
+          src={notionFace96}
+          srcSet={`${notionFace48} 48w, ${notionFace96} 96w`}
+          sizes="48px"
+          width={48}
+          height={48}
+          alt=""
+          className="h-12 w-12"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
         lee<span className="text-accent">.</span>
       </a>
       <nav
@@ -335,18 +207,6 @@ function Navigation({ activeSection, onNavigate, onViewResume }: { activeSection
 function Evidence() {
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const panel = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const animation = gsap.fromTo(
-      panel.current,
-      { opacity: 0.65, y: 5 },
-      { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" },
-    );
-    return () => {
-      animation.kill();
-    };
-  }, [active]);
   const stage = stages[active];
   return (
     <section id="uav" className="section-pad">
@@ -377,9 +237,9 @@ function Evidence() {
             ))}
           </div>
           <div
-            className="pt-6 pb-5 md:min-h-71.25 md:pt-7 [&>h3]:mb-4 [&>h3]:text-2xl [&>p]:text-sm"
+            className="evidence-copy pt-6 pb-5 md:min-h-71.25 md:pt-7 [&>h3]:mb-4 [&>h3]:text-2xl [&>p]:text-sm"
             id="evidence-panel"
-            ref={panel}
+            key={active}
             aria-live="polite"
           >
             <h3>{stage.heading}</h3>
@@ -507,6 +367,8 @@ function App() {
   useEffect(() => {
     // Hairline plot state: independent of authored motion so reduced-motion
     // still resolves to the drawn end-state (transitions are disabled there).
+    // The work-index entrance is pure CSS off this class; no JS animation
+    // library ships, keeping the initial bundle small for LCP/INP.
     const indexEl = root.current?.querySelector("#work");
     let viewObserver: IntersectionObserver | undefined;
     if (indexEl) {
@@ -517,31 +379,8 @@ function App() {
       }, { threshold: 0.15 });
       viewObserver.observe(indexEl);
     }
-    const motion = gsap.matchMedia();
-    motion.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.fromTo(".hero-enter", { y: 24, opacity: 0.4 }, {
-        y: 0, opacity: 1, stagger: 0.06, duration: 0.42, ease: "expo.out",
-      });
-      // Reveal the evidence index as a sequence once it enters the viewport.
-      const index = root.current?.querySelector("#work");
-      let reveal: gsap.core.Tween | undefined;
-      const observer = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting || !index) return;
-        reveal = gsap.fromTo(index.querySelectorAll("summary, .work-row"), { x: 18, opacity: 0.6 }, {
-          x: 0, opacity: 1, stagger: 0.06, duration: 0.4, ease: "expo.out",
-          clearProps: "transform",
-        });
-        observer.disconnect();
-      }, { threshold: 0.15 });
-      if (index) observer.observe(index);
-      return () => {
-        observer.disconnect();
-        reveal?.revert();
-      };
-    }, root);
     return () => {
       viewObserver?.disconnect();
-      motion.revert();
     };
   }, []);
   async function copyEmail() {
@@ -736,7 +575,11 @@ function App() {
           Back to top <ArrowUpRight size={15} />
         </a>
       </footer>
-      <ResumeViewer open={resumeOpen} onClose={closeResume} />
+      {resumeOpen ? (
+        <Suspense fallback={null}>
+          <ResumeViewer open={resumeOpen} onClose={closeResume} />
+        </Suspense>
+      ) : null}
     </div>
   );
 }
