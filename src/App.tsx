@@ -74,14 +74,8 @@ function ResumeTrigger({
       aria-label={compact ? "View resume" : "View resume (opens preview)"}
       title={compact ? "View resume" : "View resume"}
     >
-      {compact ? (
-        <FileText size={18} />
-      ) : (
-        <>
-          <FileText size={18} />
-          View resume
-        </>
-      )}
+      <FileText size={18} />
+      {!compact && "View resume"}
     </button>
   );
 }
@@ -582,11 +576,9 @@ function App() {
           Back to top <ArrowUpRight size={15} />
         </a>
       </footer>
-      {resumeOpen ? (
-        <Suspense fallback={null}>
-          <ResumeViewer open={resumeOpen} onClose={closeResume} />
-        </Suspense>
-      ) : null}
+      <Suspense fallback={null}>
+        {resumeOpen && <ResumeViewer open onClose={closeResume} />}
+      </Suspense>
     </div>
   );
 }
