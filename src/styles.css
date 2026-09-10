@@ -15,20 +15,6 @@
   --accent-ink: #17171a;
   color-scheme: dark;
 }
-:root[data-theme="paper"] {
-  --canvas: #efece5;
-  --surface: #e7e3da;
-  --surface-strong: #ddd8cc;
-  --text: #15140f;
-  --secondary: #55534a;
-  --muted: #646052;
-  --line: #cbc5b6;
-  --line-strong: #93918a;
-  --accent: #8839ef;
-  --accent-readable: #7430d2;
-  --accent-ink: #fff;
-  color-scheme: light;
-}
 
 @theme inline {
   --color-canvas: var(--canvas);
