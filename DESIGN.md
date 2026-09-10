@@ -1,17 +1,80 @@
+---
+name: Lee Portfolio
+description: Evidence-led aeronautical engineering in Herdr Ink and Paper.
+colors:
+  ink-canvas: "#17171a"
+  ink-accent: "#cba6f7"
+  ink-accent-readable: "#cba6f7"
+  ink-text: "#eae8ee"
+  paper-canvas: "#efece5"
+  paper-accent: "#8839ef"
+  paper-accent-readable: "#7430d2"
+  paper-text: "#15140f"
+typography:
+  display:
+    fontFamily: "Archivo, sans-serif"
+    fontSize: "clamp(2.5rem, 10vw, 5rem)"
+    fontWeight: 900
+    lineHeight: 0.94
+    letterSpacing: "-0.04em"
+  headline:
+    fontFamily: "Archivo, sans-serif"
+    fontSize: "clamp(2.2rem, 4.2vw, 4rem)"
+    fontWeight: 800
+    lineHeight: 1.05
+    letterSpacing: "-0.035em"
+  body:
+    fontFamily: "Inter, sans-serif"
+    lineHeight: 1.7
+  label:
+    fontFamily: "JetBrains Mono, monospace"
+    fontSize: "11px"
+    fontWeight: 400
+    lineHeight: 1.7
+    letterSpacing: "0.025em"
+rounded:
+  square: "0px"
+spacing:
+  gutter-small: "16px"
+  gutter-mobile: "20px"
+  gutter-desktop: "34px"
+  section-mobile: "52px"
+  section-desktop: "80px"
+components:
+  button-primary:
+    rounded: "{rounded.square}"
+    padding: "14px 20px"
+  button-secondary:
+    rounded: "{rounded.square}"
+    padding: "14px 20px"
+  icon-button:
+    rounded: "{rounded.square}"
+    size: "44px"
+---
+
 # Portfolio Design Direction
 
-## Design Read
+## Overview
+
+**Creative North Star: "Engineering field notebook crossed with an aircraft instrument panel"**
 
 An aerospace engineering portfolio for recruiters, engineering teams, and collaborators. The visual language should feel technical, assured, and evidence-led: an editorial presentation built on drafting-grid structure, oversized typography, restrained color, and real project artifacts.
 
-This direction is informed by the visual language of [herdr.dev](https://herdr.dev/), reviewed in its desktop and mobile layouts and in both its dark `ink` and light `paper` modes. It is inspiration, not a template. Do not reproduce Herdr's branding, ram motif, terminal mock, copy, exact palette, or page composition.
+This direction is informed by the visual language of [herdr.dev](https://herdr.dev/). Following the owner's September 10, 2026 correction, use its live Ink/Paper palette: lavender on charcoal and violet on warm paper. This supersedes the earlier signal-orange direction. Retain Lee's approved identity-first, evidence-led composition; do not reproduce Herdr's branding, ram motif, terminal mock, or copy.
+
+**Key Characteristics:**
+- Identity-first editorial typography.
+- Real engineering artifacts at natural proportions.
+- Square composition, hairline divisions, and theme-aware interaction feedback.
+
+This record is source-grounded in `src/App.tsx` and `src/styles.css`. The approved homepage contract lives in `.impeccable/surfaces/src-app-tsx.md`; prospective case-study guidance below is not a claim that separate routes have shipped.
 
 ## Design Principles
 
 1. **Work is the interface.** Project photography, CAD renders, diagrams, test footage, and measured outcomes are the dominant visual material.
 2. **Structured, not sterile.** Fine rules, numbered sections, and a visible grid create engineering rigor; oversized type and asymmetric imagery keep it personal.
 3. **Evidence before claims.** Prefer dimensions, roles, constraints, tools, and outcomes over generic skill statements.
-4. **One strong accent.** Use an aerospace signal orange against neutral ink and paper surfaces. Do not introduce unrelated accent colors.
+4. **One strong accent.** Use lavender in Ink and violet in Paper against the reference's charcoal and warm-paper surfaces. Do not introduce unrelated accent colors.
 5. **Dense details, clear hierarchy.** Technical metadata may be compact and monospaced, while prose remains comfortably readable.
 6. **Motion demonstrates function.** Animation should reveal construction, sequence, or state. Decorative motion is unnecessary.
 
@@ -28,12 +91,12 @@ The site should evoke an engineering field notebook crossed with an aircraft ins
 Use:
 
 - A centered, bordered page chassis on desktop
-- A faint square drafting grid behind major surfaces
+- Plain surfaces with drafting structure expressed by aligned columns and rules
 - Hairline dividers as the primary grouping device
 - Sharp rectangular controls and image frames
 - Large, tightly tracked sans-serif display type
 - Monospaced labels, measurements, dates, tools, and figure captions
-- Oversized low-contrast section numerals
+- Compact project numerals that gain accent emphasis when notes open
 - Small status marks for project state or discipline
 - Real imagery with concise technical captions
 - Dark and light themes with identical hierarchy
@@ -45,53 +108,49 @@ Avoid:
 - Generic three-column skill cards
 - Fake terminal windows or fake CAD interfaces
 - Decorative aircraft silhouettes used as filler
-- Purple accents copied from the reference
+- Unrelated accent colors outside the approved Ink/Paper palette
 - Excessive uppercase labels above every heading
 - Project descriptions that read like marketing copy
 
-## Color System
+## Colors
 
 Use semantic tokens so the same structure works in both themes.
 
 ### Ink Mode
 
 ```css
---canvas: #151617;
---surface: #1c1e20;
---surface-strong: #24272a;
---text: #ecebea;
---text-secondary: #c4c3c0;
---text-muted: #8e908f;
---line: #292c2e;
---line-strong: #3a3e40;
---accent: #f08a3c;
---accent-ink: #151617;
---success: #69a879;
---warning: #d2a64c;
+--surface: #1e1e22;
+--surface-strong: #26262b;
+--secondary: #cdccd2;
+--muted: #b0afb6;
+--line: #35353d;
+--line-strong: #45475a;
+--accent-ink: #17171a;
 ```
 
 ### Paper Mode
 
 ```css
---canvas: #f1f0eb;
---surface: #e8e7e1;
---surface-strong: #dcdbd3;
---text: #171817;
---text-secondary: #50524f;
---text-muted: #7d807a;
---line: #deddd6;
---line-strong: #c8c6bc;
---accent: #c95016;
---accent-ink: #ffffff;
---success: #39764a;
---warning: #8c681a;
+--surface: #e7e3da;
+--surface-strong: #ddd8cc;
+--secondary: #55534a;
+--muted: #646052;
+--line: #cbc5b6;
+--line-strong: #93918a;
+--accent-ink: #fff;
 ```
 
 ### Usage Rules
 
+Canvas, accent, and text primitives are recorded in frontmatter; the CSS blocks above retain supporting semantic values. Tailwind v4 `@theme inline` binds utilities to the active root variables.
+
+The `--accent-readable` semantic token maps through `--color-accent-readable` for selected evidence-stage labels and hover text on secondary buttons, icon controls, text links, and contact email/copy controls. It matches the core accent in Ink and uses the darker readable violet in Paper. Core accent fills, borders, focus outlines, and display emphasis retain the approved palette.
+
+**The One Accent Rule.** Use lavender in Ink and violet in Paper; preserve the same hierarchy across themes.
+
 - Default to Ink mode if there is no saved preference; expose a clear `INK / PAPER` toggle.
-- Apply the drafting grid with 1px lines every `72px` on desktop and every `40px` on mobile.
-- Keep the grid only slightly distinct from the canvas. It must not interfere with text or images.
+- Express the drafting structure through aligned content columns and hairline section divisions; the approved homepage uses plain surfaces behind artifacts.
+- Muted text and rules may be strengthened relative to Herdr for readability. Core canvas, text, surface, and accent colors follow the reference.
 - Reserve the accent for one phrase in the hero, active controls, links, focus rings, and small navigational signals.
 - Do not color every heading or every project number.
 - Body text must meet WCAG AA contrast in both themes.
@@ -100,9 +159,9 @@ Use semantic tokens so the same structure works in both themes.
 
 ### Families
 
-- **Display:** Archivo, ideally self-hosted, weights 800 and 900.
-- **Body:** Inter or a similarly neutral grotesk, weights 400 to 600.
-- **Technical:** JetBrains Mono, weight 400 to 700.
+- **Display:** Archivo with sans-serif fallback, weights 800 and 900.
+- **Body:** Inter with sans-serif fallback.
+- **Technical:** JetBrains Mono with monospace fallback, weight 400.
 
 This pairing intentionally separates voice, explanation, and evidence:
 
@@ -112,54 +171,91 @@ This pairing intentionally separates voice, explanation, and evidence:
 
 ### Scale
 
-```css
---display-hero: clamp(2.6rem, 7.2vw, 7.6rem);
---display-section: clamp(2.25rem, 5vw, 4.75rem);
---heading-project: clamp(1.25rem, 2vw, 1.75rem);
---body-large: clamp(1rem, 1.2vw, 1.125rem);
---body: 0.9375rem;
---label: 0.6875rem;
---micro: 0.625rem;
-```
+Frontmatter records the shared display, headline, body, and label roles. At `768px`, the hero display becomes `clamp(4rem, 8.4vw, 7.5rem)`. Project titles are `25px`, `22px` from `768px`, and `25px` from `1024px`. Prose ranges from `12px` in project summaries to `16px` in the desktop introduction.
 
 ### Typesetting Rules
 
-- Hero display uses weight 900, `line-height: 0.9`, and approximately `-0.055em` tracking.
-- Keep the desktop hero to two or three deliberate lines and the mobile hero to no more than four.
+- The discipline headline uses an explicit two-line break and the display metrics in frontmatter.
 - Highlight one meaningful phrase in the hero using the accent color, not a gradient or alternate font.
-- Body copy uses `line-height: 1.65-1.75` and a maximum width of `58ch`.
-- Technical labels use uppercase with `0.14em-0.22em` tracking.
-- Eyebrows are rare: use one in the hero and at most one more on the home page.
+- Body copy uses the shared line height; the introduction is bounded at `42ch` on mobile and `34ch` on desktop, with project notes at `70ch`.
+- Technical metadata uses uppercase; tracking increases to `0.075em` at `768px`.
 
-## Layout System
+## Layout
 
 ### Page Chassis
 
 - Maximum width: `1440px`.
 - Center within the viewport.
-- Apply 1px borders to the left, right, and bottom edges on desktop.
+- Apply 1px side borders from `768px`; above `1440px`, add a top border and `20px` top margin. The footer supplies the bottom rule.
 - Desktop gutter: `34px`.
-- Tablet gutter: `20px`.
+- Mobile gutter from `390px`: `20px`; desktop gutter applies from `768px`.
 - Small-mobile gutter: `16px`.
 - Corners remain square throughout the interface.
 
 ### Grid
 
-- Use a 12-column desktop grid for page composition.
+- Use explicit fractional grids: `5fr / 7fr` for hero and About, `4fr / 8fr` for evidence, and `5fr / 3fr / 3fr` for project summaries from `768px`.
 - Use CSS Grid rather than percentage-based flex calculations.
-- Rules and shared edges should align across navigation, hero, metrics, project rows, and footer.
+- Rules and shared edges align across navigation, hero, capability strip, project rows, and footer.
 - Prefer horizontal section borders over floating containers.
 - Large photos may span the full inner frame; supporting photos can use asymmetric 7/5 or 8/4 splits.
 
 ### Spacing
 
-- Navigation height: `60-64px`.
-- Hero block padding: `64-80px` top and `56-72px` bottom.
-- Major case-study sections: `72-104px` block padding.
-- Project index rows: `28-40px` block padding.
+- Navigation height: `64px`, increasing to `76px` at `768px`.
+- Hero block padding: `32px` top / `28px` bottom, increasing to `48px` / `40px` at `768px`.
+- Shared section padding follows the mobile and desktop frontmatter spacing tokens.
+- Project disclosure rows: `28px` block padding, increasing to `30px` at `768px`.
 - Keep gaps systematic, but let image scale produce visual variety.
 
-## Home Page Anatomy
+## Elevation & Depth
+
+Flat at rest: surface tones and one-pixel rules provide separation. The shipped interface has no shadows, blur, or glass layers. The mobile menu overlays content with a solid surface and a bottom rule.
+
+## Shapes
+
+Controls, figures, and the page frame have square corners. The small hollow circular marker beside “Not flight-tested” is a status detail, not a container-radius precedent.
+
+## Components
+
+### Shipped homepage composition
+
+The approved surface contract supersedes the older homepage proposals. The opening pairs the two-line discipline headline and accent work action with a real UAV image. A four-item capability strip replaces numerical profile metrics. The featured project exposes Design / Build / Validation evidence, followed by an inline project index, team-oriented About section, experience rows, contact section, and compact footer. There is no availability ribbon or decorative identity mark.
+
+### Navigation and contact utilities
+
+The header contains Work, About, Experience, Contact, an Ink/Paper segmented control, and persistent email, direct resume-download, and LinkedIn icon links. Below `768px`, section links and the theme control move into a bordered menu; email, resume, LinkedIn, and the menu control remain in the header. Escape and section-link selection close the menu. LinkedIn opens a new tab. Contact repeats LinkedIn and the labeled resume download, alongside an email link and copy control with success/error feedback. The footer contains the year, evidence-led signature, and Back to top.
+
+Contact leads with “Let’s talk engineering.” and places “Have an engineering opportunity?” beneath it as supporting prose (`14px`, `24px` top margin). The decorative heading arrow appears only from `768px` at `70px`; email and copy-control hover text use the readable accent.
+
+### Evidence and project notes
+
+Design / Build / Validation buttons use `aria-pressed`, update real imagery and scope text, and announce text changes politely. Desktop enlargement changes the evidence grid to one column rather than opening an overlay. The index links the UAV back to its evidence section; other projects use native disclosures with explicit open/close labels, an accent open state, and plus-to-close rotation. Real quadcopter and wind-tunnel photographs appear in the index. Notes preserve contribution and limitation details; separate case-study routes are outside this shipped surface.
+
+### Buttons and links
+
+Square outlined controls use semantic line colors, monospaced uppercase labels, and `150ms` color feedback. Labeled buttons have a `50px` minimum height; icon buttons are `44px` square. The primary work action uses accent fill and accent-ink text, changing to text-color fill and canvas text on hover. Secondary and icon controls gain core-accent borders, readable-accent text, and a 10% core-accent tint. Press translates buttons down `1px`. Keyboard focus uses a `2px` accent outline with `4px` offset. Text links use readable-accent hover text; their arrows shift horizontally `4px`, while button arrows move down `2px` over `300ms`.
+
+### Figures and informational metadata
+
+Project images use `width: 100%; height: auto`, generated intrinsic dimensions, and `640w` / `1280w` responsive sources. The hero image is eager/high-priority; remaining imagery is lazy. Hover enlargement (`1.025`, `500ms`) clips inside the image bounds. Captions sit outside photography and identify role, methods, and limitations. Metadata is plain technical text rather than a chip library; no input fields or generic card system ship.
+
+## Do's and Don'ts
+
+### Do:
+- Do preserve the Ink/Paper hierarchy and semantic theme bindings.
+- Do show real project evidence at its natural proportions.
+- Do keep contribution and limitations visible beside the work.
+- Do respect reduced motion and retain native disclosure behavior.
+
+### Don't:
+- Don't introduce unrelated accent colors.
+- Don't replace project artifacts with simulated CAD or terminal interfaces.
+- Don't crop away engineering details to force uniform thumbnail boxes.
+
+## Superseded Homepage Proposals
+
+The historical proposals below are retained as context only, not implementation requirements. For shipped homepage composition and behavior, use Components above and `.impeccable/surfaces/src-app-tsx.md`. Their availability ribbon, numeric metrics, geometric hero mark, selectable Assembly/Airframe/Control/Test views, full-row project links, and proposed footer are superseded.
 
 ### 1. Navigation
 
@@ -307,7 +403,7 @@ Use an oversized, left-aligned final headline such as `Let’s build what flies 
 - Monospaced microcopy
 - Stack into two rows on mobile instead of squeezing links
 
-## Project Detail Pages
+## Project Detail Pages (Future Guidance)
 
 Every case study should be a technical narrative, not a gallery dump.
 
@@ -349,8 +445,8 @@ The existing repository contains strong source material across projects, competi
 - Use consistent neutral color grading only when sources visibly clash.
 - Crop assertively but never hide relevant engineering details.
 - Add subtle surface labels outside the image rather than placing text over busy photography.
-- Images use square corners and 1px borders.
-- Use `object-fit: cover` for editorial thumbnails and `contain` for CAD renders, certificates, and diagrams.
+- Images use square corners. Borders belong to figure headers/captions where present; avoid empty framed areas around an image.
+- Render supplied photography, CAD previews, and portrait documentation at their natural proportions (`width: 100%; height: auto`). Generated per-image width/height metadata reserves the correct space. Thumbnail hover zoom stays inside the image's own bounds.
 
 ### Asset Preparation
 
@@ -360,7 +456,9 @@ The existing repository contains strong source material across projects, competi
 - Use responsive `srcset` sizes; preload only the actual hero media.
 - Open certificates and logos in overlays or dedicated detail views rather than placing full-resolution documents on the home page.
 
-## Components
+## Earlier Component Proposals (Unshipped)
+
+The button, figure, and metadata definitions in Components above are authoritative for the current build. The earlier status palette and tag proposals below are not shipped primitives.
 
 ### Buttons
 
@@ -400,11 +498,13 @@ Motion should communicate hierarchy, process, or feedback.
 
 Use:
 
-- Hero elements entering with a short opacity and `translateY(12px)` sequence
+- Hero elements entering from `translateY(24px)` and opacity `0.4`, with `420ms` duration and `60ms` stagger
 - Project-row arrows shifting on hover
-- Image swap crossfades in the featured project plate
-- Optional line-drawing animation for an airfoil or planform mark on first load
+- Evidence imagery entering from `translateY(10px)` and opacity `0.65` over `360ms`; accompanying text enters from `5px` over `300ms`
 - View labels updating instantly when project media changes
+- An inline desktop enlargement control for closer UAV-image inspection; mobile already uses the content width
+- Native project disclosures with opening/closing transitions, plus-to-close rotation, and explicit open/close labels
+- One-time staggered project-index entry and a short mobile-menu entrance
 
 Do not use:
 
@@ -416,10 +516,10 @@ Do not use:
 
 Timing:
 
-- Hover and active feedback: `100-160ms`
-- Content transitions: `220-360ms`
-- Entrance sequence: no more than `600ms` total
-- Animate only opacity and transform
+- Control color feedback: `150ms`; arrow/plus transforms: `300ms`; image hover: `500ms`
+- Native disclosure block-size/content-visibility transitions: `320ms`; menu entrance: `240ms`
+- Project index entrance: `400ms` with `60ms` stagger, once on intersection
+- Use opacity and transform for entrances; disclosure expansion also animates block size where supported
 - Disable nonessential motion under `prefers-reduced-motion: reduce`
 
 ## Responsive Behavior
@@ -428,29 +528,28 @@ Timing:
 
 - Full framed chassis
 - Single-line navigation
-- Hero retains asymmetric text/mark layout
-- Metrics form one horizontal strip
+- Hero retains asymmetric text/photograph layout
+- Capabilities form one horizontal strip
 - Project rows use three columns
-- Featured plate uses a wide cinematic ratio
+- All project photography retains natural proportions
 
 ### Tablet: `768-1023px`
 
-- Reduce gutters to `20px`
-- Collapse metrics to two columns
-- Project rows use index plus content; evidence moves below the copy
-- Keep the large project plate but simplify selectable controls
-- Hide sticky case-study navigation
+- Use `34px` gutters and the desktop fractional grids
+- Keep the capability strip horizontal and project summaries in three columns
+- Keep evidence controls vertical and expose inline image enlargement
+- There is no sticky case-study navigation on the homepage
 
 ### Mobile: `< 768px`
 
 - Use a strict single content column
 - Remove outer chassis side borders if they constrain content
-- Keep a compact 60px navigation
+- Keep a compact `64px` navigation
 - Hero headline remains dominant but does not overflow horizontally
-- Metrics use a 2x2 grid or exact cell count equivalent
+- Capabilities use a two-column grid
 - Project rows use a narrow `36-44px` index column and one content column
 - Evidence panels stack below descriptions and span the content width
-- Featured media may use a taller ratio; hide secondary views rather than shrinking them illegibly
+- Preserve natural media proportions; all three evidence controls remain visible in a horizontal row
 - Keep captions and metadata legible at `11px` minimum
 - Footer stacks into clear rows
 
@@ -471,7 +570,7 @@ Timing:
 - All controls remain keyboard operable.
 - Do not place text directly over photography without a solid backing surface.
 - Maintain 4.5:1 contrast for body text and 3:1 for large display text.
-- Theme preference persists, but the site remains functional without JavaScript.
+- Theme preference persists when storage is available. Native disclosures work without animation support; the React application itself requires JavaScript.
 - Respect reduced motion and avoid autoplaying audible video.
 
 ## Content Voice
@@ -499,11 +598,11 @@ Project summaries should answer four questions quickly:
 
 ## Implementation Guardrails
 
-- Build from semantic tokens rather than scattered literal colors.
+- Build from semantic tokens rather than scattered literal colors. Tailwind v4 `@theme inline` maps Ink/Paper variables into utility colors; JSX utilities own responsive composition and states. Keep CSS limited to base styles, shared `@utility` primitives, and specialized motion.
 - Use one radius system: `0px` for all visible containers and controls.
 - Use one accent throughout the entire site.
 - Avoid generic card abstractions when a border-separated row communicates hierarchy better.
-- Do not reproduce Herdr's page copy, terminal UI, mascot placement, purple palette, or exact project-row count.
+- Do not reproduce Herdr's page copy, terminal UI, mascot placement, or exact project-row count. Its palette is explicitly requested.
 - Do not invent project metrics, dates, responsibilities, or outcomes.
 - Audit the site in both themes and at `1440px`, `1024px`, `768px`, `390px`, and `320px` widths.
 - Target LCP below `2.5s`, CLS below `0.1`, and INP below `200ms`.

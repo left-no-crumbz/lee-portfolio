@@ -57,14 +57,14 @@ Visitors will primarily browse the work, inspect supporting images or video, rea
 - There is no official evidence that Lee's Klimatech work caused the company's awards or media coverage.
 - Project source artifacts are not publicly downloadable. Hiring managers may request access or permission.
 - Some RC plane components came from GrabCAD, and some group-created parts may not be shown publicly. Publication must respect group decisions and third-party ownership.
-- The exact public display name, contact details, current location wording, availability status, and final resume-download policy remain open decisions.
+- The exact public display name, current location wording, and availability status remain open decisions. The owner confirmed direct download of the supplied resume and the LinkedIn profile `https://www.linkedin.com/in/leetuazon/` on September 10, 2026.
 
 ## Brand Commitments
 
 - Use Lee as the working identity until the exact public display name is confirmed.
 - The voice must be direct, technically literate, factual, and explicit about uncertainty or project limitations.
 - The experience should feel highly crafted and engaging, with purposeful interactions and micro-animation rather than passive decoration.
-- `DESIGN.md` is the existing visual authority. Herdr is a stated reference for confidence and interaction quality, not a source to copy.
+- `DESIGN.md` is the existing visual authority. The owner explicitly requested Herdr's Ink/Paper palette, alongside its confidence and interaction quality; the portfolio retains its own content and composition.
 - Real engineering work must remain the focus of the experience.
 
 ## Evidence on Hand
@@ -76,7 +76,7 @@ Visitors will primarily browse the work, inspect supporting images or video, rea
 - `assets/certificates/` contains diploma, membership, internship, and training evidence.
 - `assets/logos/` contains relevant education, employer, organization, and software marks. Their presence does not by itself imply endorsement.
 - `assets/myself/` contains portrait and contextual photography.
-- `assets/resume/lee-andrei-tuazon-resume.pdf` contains the current resume artifact. Whether it will be directly downloadable remains undecided.
+- `assets/resume/lee-andrei-tuazon-resume.pdf` contains the resume artifact and is directly downloadable by the owner's explicit request. Website copy remains governed by later project qualifications.
 - No unsupported performance benchmarks, verified reduced-downtime figures, exact quadcopter trial count, or proof that Klimatech awards resulted from Lee's work is available; future copy must not fabricate them.
 
 ## Product Principles
