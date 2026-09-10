@@ -1,6 +1,6 @@
 # Lee — Aeronautical Engineering
 
-React + Vite homepage with Tailwind CSS, GSAP, Lucide icons, and self-hosted fonts.
+React + Vite homepage with Tailwind CSS, Lucide icons, and self-hosted fonts.
 
 ```sh
 bun install
@@ -25,6 +25,6 @@ Only explicitly imported, resized project previews ship, including the owner-req
 
 Tailwind v4's Vite plugin compiles responsive layout and state utilities in `src/App.tsx`. `src/styles.css` defines semantic Ink/Paper tokens via `@theme inline`, shared `@utility` primitives, base typography, and native disclosure transitions. Colors follow the sampled Herdr palette: lavender/charcoal in Ink and violet/warm paper in Paper.
 
-GSAP handles the opening sequence, one-time project-index reveal, and evidence-copy transitions. CSS handles image and arrow feedback, stage-image transitions, menu entry, and native disclosure expansion. Reduced-motion preferences disable nonessential animation. The UAV photograph can expand inline on desktop; mobile already uses the full content width.
+CSS handles the opening sequence, one-time project-index reveal, evidence transitions, image and arrow feedback, menu entry, and native disclosure expansion; no animation library ships. Reduced-motion preferences disable nonessential animation. The UAV photograph can expand inline on desktop; mobile already uses the full content width.
 
 Approved surface strategy: `.impeccable/surfaces/src-app-tsx.md`. Visual authority: `DESIGN.md`.
