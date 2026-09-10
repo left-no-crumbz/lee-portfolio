@@ -351,7 +351,7 @@ function Evidence() {
   return (
     <section id="uav" className="section-pad">
       <div className="section-heading">
-        <h2>Inside the airframe.</h2>
+        <h2>Inside the airframe<span className="text-accent">.</span></h2>
         <span className="technical">
           Fixed-wing UAV / Academic team project
         </span>
@@ -625,14 +625,14 @@ function App() {
           <div>
             <h2>
               Engineering is
-              <br />a team effort.
+              <br />a team effort<span className="text-accent">.</span>
             </h2>
             <p className="my-6 max-w-[36ch] text-sm">
               I enjoy the work between a drawing and a finished build: making
               decisions, understanding constraints, and putting the pieces
               together.
             </p>
-            <a className="text-link" href="#experience">
+            <a className="text-link link-down" href="#experience">
               My experience <ArrowDown size={16} />
             </a>
           </div>
@@ -652,7 +652,7 @@ function App() {
         </section>
         <section className="section-pad" id="experience">
           <div className="section-heading">
-            <h2>Beyond the project.</h2>
+            <h2>Beyond the project<span className="text-accent">.</span></h2>
             <span className="technical">Experience & education</span>
           </div>
           <div className="experience-row">

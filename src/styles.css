@@ -139,6 +139,10 @@
 .return-link:hover svg { transform: translate(3px, -3px); }
 .return-link:active svg { transform: translate(0, 2px); }
 
+/* Down-pointing text links travel down, not right. */
+.text-link.link-down:hover > svg { translate: 0 3px; }
+.text-link.link-down:active > svg { translate: 0 5px; }
+
 .thumb-frame { position: relative; overflow: hidden; }
 .thumb-bar {
   position: absolute;
