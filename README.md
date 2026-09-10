@@ -13,7 +13,7 @@ Cloudflare Pages: build command `bun run build`, output directory `dist`. No Wor
 
 ## Content
 
-Edit project copy and email in `src/content.ts`. The source of truth for attribution and limitations is `website-questions.txt`, ahead of older resume claims.
+Edit project copy and email in `src/content.ts`. Attribution and limitations follow the owner's confirmed project answers.
 
 Resume controls directly download `assets/resume/lee-andrei-tuazon-resume.pdf`, bundled by Vite, as requested by the owner. Replace that source PDF to update the download. Homepage claims still follow the later project answers. LinkedIn links to `https://www.linkedin.com/in/leetuazon/`.
 
