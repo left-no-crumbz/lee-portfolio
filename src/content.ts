@@ -12,13 +12,17 @@ import quadcopter from "./media/quadcopter-1280.webp";
 import quadcopterSmall from "./media/quadcopter-640.webp";
 import windTunnel from "./media/windTunnel-1280.webp";
 import windTunnelSmall from "./media/windTunnel-640.webp";
+import design from "./media/design-1280.webp";
+import designSmall from "./media/design-640.webp";
+import validation from "./media/validation-1280.webp";
+import validationSmall from "./media/validation-640.webp";
 import suppliedResume from "../assets/resume/lee-andrei-tuazon-resume.pdf?url";
 import dimensions from "./media/dimensions.json";
 
 export const email = "engrlatuazon@gmail.com";
 export const resumeUrl = suppliedResume;
 export const linkedInUrl = "https://www.linkedin.com/in/leetuazon/";
-export const media = { airframe, team, aircraft, controls, competition, quadcopter, windTunnel };
+export const media = { airframe, team, aircraft, controls, competition, quadcopter, windTunnel, design, validation };
 export const mediaDimensions = Object.fromEntries(
   Object.entries(media).map(([name, src]) => [src, dimensions[name as keyof typeof dimensions]]),
 );
@@ -30,20 +34,24 @@ export const smallMedia: Record<string, string> = {
   [competition]: competitionSmall,
   [quadcopter]: quadcopterSmall,
   [windTunnel]: windTunnelSmall,
+  [design]: designSmall,
+  [validation]: validationSmall,
 };
 export const stages = [
   {
     name: "Design",
+    mediaLabel: "CAD drawing",
     heading: "From geometry to a buildable airframe.",
     text: "I designed the wings and control surfaces, tail section, and rotor mount in SolidWorks, and performed stability analysis in XFLR5.",
     scope: "My work: CAD, drawings, stability analysis",
     caption:
-      "Assembled prototype showing the wing, tail, and propulsion layout. Detailed CAD files are available only with permission.",
-    image: airframe,
-    alt: "The assembled fixed-wing UAV with black wings, white tail, and front-mounted propeller on a blue workshop floor.",
+      "Exploded-view isometric drawing of the Wyvern UAV assembly (Scale 1:1). Detailed CAD files are available only with permission.",
+    image: design,
+    alt: "Exploded-view isometric CAD drawing of the fixed-wing UAV showing the fuselage, wings, tail assembly, motor mount, landing gear, and internal components separated for clarity.",
   },
   {
     name: "Build",
+    mediaLabel: "Project photograph",
     heading: "Individual responsibilities. A shared build.",
     text: "I allocated work across our nine-person team and contributed to 3D printing, integration, and assembly. The completed prototype was a team outcome.",
     scope: "Shared work: fabrication, integration, assembly",
@@ -54,13 +62,14 @@ export const stages = [
   },
   {
     name: "Validation",
+    mediaLabel: "Project photograph",
     heading: "Be precise about what was tested.",
     text: "We performed limited ground testing and visual checks. The aircraft was not flight-tested before I transferred leadership following my move to the United States.",
     scope: "Status: limited ground testing; no flight test",
     caption:
-      "Prototype on the ground. This photograph documents the build, not flight performance. No measured peer-performance claim is made.",
-    image: airframe,
-    alt: "The fixed-wing UAV resting on its landing gear; the photograph does not show a flight test.",
+      "Overhead view of the assembled UAV on the workshop floor during ground inspection. This photograph documents the build, not flight performance. No measured peer-performance claim is made.",
+    image: validation,
+    alt: "Top-down view of the assembled fixed-wing UAV on a blue workshop floor, photographed during ground inspection with no flight test.",
   },
 ];
 export const projects = [

@@ -26,5 +26,13 @@
   "windTunnel": {
     "width": 1280,
     "height": 960
+  },
+  "design": {
+    "width": 1280,
+    "height": 880
+  },
+  "validation": {
+    "width": 1280,
+    "height": 960
   }
 }
