@@ -1,0 +1,36 @@
+# Lee — Aeronautical Engineering Portfolio
+
+> Evidence-led portfolio of Lee, an aeronautical engineer working across aircraft design, stability analysis, electronic integration, and hands-on fabrication. Every project states the individual's role, methods, and limitations; team outcomes are distinguished from individual contribution.
+
+## Sections
+
+- [Selected work](/#work): fixed-wing UAV evidence (Design / Build / Validation) and inline project notes for the quadcopter, aircraft configuration, wind tunnel, and control-surface model.
+- [Inside the airframe](/#uav): Design, Build, and Validation stages of the fixed-wing UAV team project, with real CAD and build photography.
+- [About](/#about): team-oriented engineering background and glider competition contribution.
+- [Experience and education](/#experience): quality engineering internship, aerodynamics analysis work, and B.S. Aeronautical Engineering.
+- [Contact](/#contact): email, resume, and LinkedIn.
+
+## Projects
+
+- [Fixed-wing UAV](/#uav): Lead Design Engineer. SolidWorks CAD, drawings, XFLR5 stability analysis. Nine-person team build; limited ground testing only — not flight-tested before leadership transfer.
+- [Quadcopter drone](/#work): Electronic Integration Engineer and BOM Manager. Soldering, assembly, Betaflight configuration. Stable low-aggression flights reported; exact trial count unavailable.
+- [Aircraft design](/#work): Individual academic configuration project. SolidWorks assembly, calculations, drawings, renders. Design evidence, not a flight-tested aircraft.
+- [Open wind tunnel](/#work): Lead Design Engineer. Assembly, drawings, simulation; five-person team assembly. Visual testing only; no numerical experimental data collected.
+- [Functional control surfaces](/#work): Academic scale model demonstrating functional ailerons and flaps.
+
+## Experience
+
+- Quality Engineering Intern, SEAIR International, Inc. (2025): aviation quality environment; specific work details confidential.
+- Aerodynamics Analyst, Klimatech Innovative Solutions (2025): CFD setup, analysis, and conclusions for a vertical-axis wind turbine project.
+- B.S. Aeronautical Engineering, Holy Angel University (2022–2026), magna cum laude.
+
+## Contact
+
+- [Email Lee](mailto:engrlatuazon@gmail.com)
+- [Lee on LinkedIn](https://www.linkedin.com/in/leetuazon/)
+- [Resume PDF](/#contact): preview and direct download available in the contact section.
+
+## Evidence limits
+
+- Claims are bounded by available evidence: no invented benchmarks, no official reduced-downtime figure, no attribution of company awards to this work.
+- Project source artifacts (CAD files, detailed build data) are available on request, subject to publication restrictions and third-party ownership.
