@@ -21,9 +21,14 @@ import {
   mediaDimensions,
   linkedInUrl,
   projects,
-  smallMedia,
+  srcSetFor,
   stages,
 } from "./content";
+
+// True slot of the 7fr editorial column (hero + about figures). The old
+// 60vw claim oversold it and pulled the 1280w file where 640w suffices.
+const editorialSizes =
+  "(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) calc((100vw - 96px) * 0.58), calc((min(100vw - 68px, 1370px) - 50px) * 0.58)";
 
 function ProjectImage({
   src,
@@ -42,7 +47,7 @@ function ProjectImage({
     <img
       className={`block h-auto w-full ${className}`}
       src={src}
-      srcSet={`${smallMedia[src]} 640w, ${src} 1280w`}
+      srcSet={srcSetFor[src]}
       sizes={sizes}
       alt={alt}
       width={mediaDimensions[src].width}
@@ -435,6 +440,7 @@ function App() {
                   src={media.airframe}
                   alt="Assembled fixed-wing UAV with black wings, a white tail, landing gear, and front-mounted propeller."
                   priority
+                  sizes={editorialSizes}
                   className="transition-transform duration-500 ease-out-expo group-hover:scale-[1.025]"
                 />
               </a>
@@ -479,6 +485,7 @@ function App() {
             <ProjectImage
               src={media.competition}
               alt="Lee and fellow glider competition team members with their aircraft and competition recognition."
+              sizes={editorialSizes}
             />
             <figcaption className="flex-col! gap-1! pb-0">
               <span className="technical">Glider competition / 2026</span>

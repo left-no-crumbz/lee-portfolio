@@ -37,6 +37,21 @@ export const smallMedia: Record<string, string> = {
   [design]: designSmall,
   [validation]: validationSmall,
 };
+// 320w/960w rungs resolve by filename convention so every image gets a full
+// responsive set without 18 more static imports.
+const extraVariants = import.meta.glob<string>("./media/*-{320,768,960}.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+function extraVariant(name: string, width: 320 | 768 | 960): string {
+  return extraVariants[`./media/${name}-${width}.webp`];
+}
+export const srcSetFor: Record<string, string> = Object.fromEntries(
+  Object.entries(media).map(([name, src]) =>
+    [src, `${extraVariant(name, 320)} 320w, ${smallMedia[src]} 640w, ${extraVariant(name, 768)} 768w, ${extraVariant(name, 960)} 960w, ${src} 1280w`],
+  ),
+);
 export const stages = [
   {
     name: "Design",
