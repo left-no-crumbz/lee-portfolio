@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import gsap from "gsap";
+import notionFace from "../assets/myself/my-notion-face-transparent.png";
 import {
   email,
   media,
@@ -70,18 +71,6 @@ function ResumeLink({ compact = false }: { compact?: boolean }) {
 
 function Navigation() {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState(
-    document.documentElement.dataset.theme ?? "ink",
-  );
-  function changeTheme(next: string) {
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("lee-theme-v1", next);
-    } catch {
-      /* Theme still works without storage. */
-    }
-  }
   useEffect(() => {
     function escape(event: KeyboardEvent) {
       if (event.key === "Escape") setOpen(false);
@@ -91,7 +80,8 @@ function Navigation() {
   }, []);
   return (
     <header className="relative flex h-16 items-center justify-between gap-5 border-b border-line px-4 min-[390px]:px-5 md:h-19 md:px-8.5 lg:gap-8">
-      <a className="font-display text-4xl font-black tracking-[-0.04em]" href="#top" aria-label="Lee, homepage">
+      <a className="flex items-center gap-2 font-display text-4xl font-black tracking-[-0.04em]" href="#top" aria-label="Lee, homepage">
+        <img src={notionFace} alt="" className="h-12 w-12" />
         lee<span className="text-accent">.</span>
       </a>
       <nav
@@ -111,18 +101,6 @@ function Navigation() {
         <a href="#contact" onClick={() => setOpen(false)}>
           Contact
         </a>
-        <div className="mt-4 flex self-start border border-line-strong p-0.75 md:mt-0 md:self-auto" aria-label="Color theme">
-          {["ink", "paper"].map((value) => (
-            <button
-              key={value}
-              className="min-h-11 px-2.5 font-mono text-[11px] uppercase transition-colors duration-150 hover:text-accent aria-pressed:bg-accent aria-pressed:text-accent-ink"
-              aria-pressed={theme === value}
-              onClick={() => changeTheme(value)}
-            >
-              {value}
-            </button>
-          ))}
-        </div>
       </nav>
       <div className="flex gap-1.5 min-[390px]:gap-2">
         <a
